@@ -34,17 +34,20 @@ export default {
           <RouterLink class="navbar-item" to="/winter">Winter</RouterLink>
           <RouterLink class="navbar-item" to="/summer">Summer</RouterLink>
           <div class="nacbar-item">
-            <div class="buttons">
+            <div class="buttons navbar-item">
               <router-link to="log-in"> Log In </router-link>
               <router-link to="cart" class="button is-succes">
-                <span class="icon"><i class="fas fa-shopping-cart"></i> </span>
+                <span class="icon navbar-item"><i class="fas fa-shopping-cart"></i> </span>
                 <span>Cart</span>
               </router-link>
             </div>
           </div>
         </div>
       </div>
-      <h1>My E-Commerce Store</h1>
+      <div class="navbar-item">
+
+        <h1>My E-Commerce Store</h1>
+      </div>
       <nav></nav>
     </div>
   </div>
