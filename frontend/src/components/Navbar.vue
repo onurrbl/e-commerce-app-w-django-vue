@@ -5,6 +5,13 @@ export default {
     return {
       showMobileMenu: false,
     };
+
+    
+  },
+  computed: {
+    cartItemCount() {
+      return this.$store.state.cart.items.length;
+    },
   },
 };
 </script>
@@ -38,7 +45,7 @@ export default {
               <router-link to="log-in"> Log In </router-link>
               <router-link to="cart" class="button is-succes">
                 <span class="icon navbar-item"><i class="fas fa-shopping-cart"></i> </span>
-                <span>Cart</span>
+                <span>Cart {{ cartItemCount }}</span>
               </router-link>
             </div>
           </div>

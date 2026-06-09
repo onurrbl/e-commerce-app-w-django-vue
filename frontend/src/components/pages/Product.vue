@@ -15,7 +15,7 @@
             <div class="control">
               <input type="number" class="input" min="1" v-model="quantity" />
               <div class="control">
-                <a href="" class="button is-dark"></a>
+                <button @click="addToCart" class="button is-dark">Add to Cart</button>
               </div>
             </div>
           </div>
@@ -27,6 +27,7 @@
 
 <script>
 import axios from "axios";
+import { toast } from "bulma-toast";
 
 export default {
   name: "Product",
@@ -57,6 +58,25 @@ export default {
           console.error("Error fetching product details:", error);
         });
     },
+    addToCart(){
+        if(isNaN(this.quantity) || this.quantity < 1){
+            this.quantity = 1;
+        }
+        const item = {
+            product: this.product,
+            quantity: this.quantity
+        };
+        this.$store.commit('addToCart', item);
+        toast({
+            message: 'Item added to cart!',
+            type: 'is-success',
+            dismissible: true,
+            pauseOnHover: true,
+            duration: 2000,
+            position: 'top-right',
+        });
+    }
+
   },
 };
 </script>

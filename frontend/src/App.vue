@@ -6,14 +6,24 @@ export default {
   components: {
     Navbar,
   },
+  data() {
+    return {
+      cart: [],
+    };
+  },
 
+  beforeCreate() {
+    this.$store.commit('initializeStore');
+  },
+  mounted() {
+    this.cart = this.$store.state.cart;
+  }
 };
 </script>
 
 <template>
   <div>
     <header>
-      <div><p>Hello, World!</p></div>
       <Navbar />
     </header>
     <div class="section">
