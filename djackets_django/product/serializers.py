@@ -22,3 +22,10 @@ class ProductSerializer(serializers.ModelSerializer):
     
     def get_thumbnail(self, obj):
         return obj.getThumbnail()
+    
+class CategoryDetailSerializer(serializers.ModelSerializer):
+    products = ProductSerializer(many=True, read_only=True)
+    
+    class Meta:
+        model = Category
+        fields = ['id', 'name', 'slug','get_absolute_url', 'products']

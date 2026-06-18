@@ -13,6 +13,12 @@
         <h2 class="title is-3">Featured Products</h2>
       </div>
 
+      <product-box
+        v-for="product in latestproducts"
+        :key="product.id"
+        :product="product"
+      />
+      <!-- 
       <div
         class="column is-3"
         v-for="product in latestproducts"
@@ -23,17 +29,22 @@
             <img :src="product.thumbnail" />
             <h3 class="is-size-4">{{ product.name }}</h3>
             <p class="is-size-5 has-text-weight-bold">${{ product.price }}</p>
-            <router-link :to="'/product'  + product.get_absolute_url  " class="button is-dark mt-4"> VView Details </router-link>
-        
+            <router-link
+              :to="'/product' + product.get_absolute_url"
+              class="button is-dark mt-4"
+            >
+              VView Details
+            </router-link>
           </figure>
-        </div>
-      </div>
+        </div> -->
+      <!-- </div> -->
     </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
+import ProductBox from "../ProductBox.vue";
 export default {
   name: "Home",
 
@@ -42,31 +53,29 @@ export default {
       latestproducts: [],
     };
   },
-  components: {},
-    mounted() {
-        this.getLatestProducts();
+  components: {
+    ProductBox,
+  },
+  mounted() {
+    this.getLatestProducts();
+  },
+  methods: {
+    async getLatestProducts() {
+      this.$store.commit("setLoading", true);
+      await axios
+        .get("api/v1/products/latest-products/")
+        .then((response) => {
+          console.log(response.data);
+          this.latestproducts = response.data;
+          document.title = "My E-Commerce Store";
+        })
+        .catch((error) => {
+          console.error("Error fetching latest products:", error);
+        });
+      this.$store.commit("setLoading", false);
     },
-    methods: {
-        getLatestProducts() {
-            axios.get('api/v1/products/latest-products/')
-                .then(response => {
-                    console.log(response.data);
-                    this.latestproducts = response.data;
-                })
-                .catch(error => {
-                    console.error('Error fetching latest products:', error);
-                });
-        },
-    }
-
-
+  },
 };
 </script>
-<style scoped>  
-.image {
-    margin-top: -1.25rem;
-    margin-left: -1.25rem;
-    margin-right: -1.25rem;
-}
-
+<style scoped>
 </style>

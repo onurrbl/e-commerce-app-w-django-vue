@@ -4,13 +4,23 @@ export default {
   data() {
     return {
       showMobileMenu: false,
+      searchQuery: "",
     };
-
-    
   },
   computed: {
     cartItemCount() {
       return this.$store.state.cart.items.length;
+    },
+  },
+  methods: {
+    handleSearch() {
+      if (this.searchQuery.trim()) {
+        this.$router.push({
+          name: "search",
+          query: { query: this.searchQuery },
+        });
+        this.searchQuery = "";
+      }
     },
   },
 };
@@ -37,6 +47,30 @@ export default {
         </a>
       </div>
       <div class="navbar-menu" id="navbarmenu" v-bind:class="{'is-active':showMobileMenu}">
+        <div class="navbar-start">
+          <div class="navbar-item">
+            <div class="has-addons field">
+              <div class="control">
+                <input 
+                  v-model="searchQuery"
+                  type="text"
+                  class="input"
+                  placeholder="Search products..."
+                  @keyup.enter="handleSearch">
+                <div class="control">
+                  <button 
+                    class="button is-success"
+                    @click="handleSearch"
+                    type="button">
+                    <span class="icon">
+                      <i class="fas fa-search"></i>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="navbar-end">
           <RouterLink class="navbar-item" to="/winter">Winter</RouterLink>
           <RouterLink class="navbar-item" to="/summer">Summer</RouterLink>

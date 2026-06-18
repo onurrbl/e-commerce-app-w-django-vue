@@ -37,12 +37,16 @@ export default createStore({
                 state.cart.items.push({ ...product, quantity: 1 });
             }
             localStorage.setItem("cart", JSON.stringify(state.cart));
+        },
+        setLoading(state, isLoading) {
+            state.isLoading = isLoading;
         }
+
     },
     actions: {
         async fetchProducts({ commit }) {
             try {
-                const response = await fetch("http://localhost:8000/api/products/latest-products/");
+                const response = await fetch("http://localhost:8000/api/v1/products/latest-products/");
                 const data = await response.json();
                 commit("setProducts", data);
             } catch (error) {
