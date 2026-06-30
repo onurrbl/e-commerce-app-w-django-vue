@@ -50,7 +50,7 @@ export default {
         <div class="navbar-start">
           <div class="navbar-item">
             <div class="has-addons field">
-              <div class="control">
+              <div class="control flex flex-col w-3rem ">
                 <input 
                   v-model="searchQuery"
                   type="text"

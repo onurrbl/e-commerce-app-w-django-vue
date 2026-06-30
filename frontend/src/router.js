@@ -1,5 +1,5 @@
 
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHashHistory,createWebHistory } from "vue-router";
 import Home from "./components/pages/Home.vue";
 import Product from "./components/pages/Product.vue";
 import Category from "./components/pages/Category.vue";
@@ -8,6 +8,9 @@ import Cart from "./components/pages/Cart.vue";
 import Signup from "./components/pages/Signup.vue";
 import Login from "./components/pages/Login.vue";
 import Checkout from "./components/pages/Checkout.vue";
+import Success from "./components/pages/Success.vue";
+import Myaccount from "./components/pages/Myaccount.vue";
+import store from './components/store/index.js.js';
 
 const routes = [
   {
@@ -15,28 +18,28 @@ const routes = [
     name: 'Home',
     component: Home
   },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  },
+  // {
+  //   path: '/about',
+  //   name: 'About',
+  //   // route level code-splitting
+  //   // this generates a separate chunk (about.[hash].js) for this route
+  //   // which is lazy-loaded when the route is visited.
+  //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+  // },
   {
     path: '/sign-up',
     name: 'SignUp',
-    component: SignUp
+    component: Signup
   },
   {
     path: '/log-in',
     name: 'LogIn',
-    component: LogIn
+    component: Login
   },
   {
     path: '/my-account',
     name: 'MyAccount',
-    component: MyAccount,
+    component: Myaccount,
     meta: {
         requireLogin: true
     }
@@ -67,7 +70,8 @@ const routes = [
   {
     path: '/:category_slug/:product_slug',
     name: 'Product',
-    component: Product
+    component: Product,
+    alias: '/product/:category_slug/:product_slug'
   },
   {
     path: '/:category_slug',
@@ -77,7 +81,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes
 })
 
